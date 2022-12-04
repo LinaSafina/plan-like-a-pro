@@ -1,0 +1,70 @@
+@import '../../sass/_variables.scss';
+
+.to-do-item {
+  padding: 2rem 3rem;
+  margin: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: $color-background;
+  border-radius: 10px;
+  position: relative;
+  transition: background-color 0.3s ease-out;
+
+  &.completed {
+    text-decoration: line-through;
+  }
+
+  &.expired {
+    color: $color-expired;
+  }
+
+  &:hover {
+    background-color: $color-lightGrey;
+  }
+}
+
+.to-do-item__title {
+  font-size: 2rem;
+}
+
+.to-do-item__actions {
+  height: 80%;
+  display: flex;
+  background-color: $color-beige;
+  position: absolute;
+  top: 10%;
+  right: 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  width: 4rem;
+  transition: width 0.4s ease-out;
+
+  svg {
+    height: 3rem;
+    cursor: pointer;
+    width: 0;
+    transition: width 0.4s ease-out, opacity 0.3s;
+    margin: 0;
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    &:nth-last-of-type(1) {
+      width: 3rem;
+      margin: 0 0.8rem;
+    }
+  }
+
+  &:hover {
+    width: 15rem;
+
+    svg {
+      width: 3rem;
+      margin: 0 1rem;
+    }
+  }
+}

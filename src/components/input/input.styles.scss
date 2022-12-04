@@ -1,0 +1,21 @@
+@import '../../sass/_variables.scss';
+
+.input {
+  padding: 0.8rem 1.5rem;
+  border: 1px solid $color-lightGreen;
+  font-family: $font-monserrat;
+  font-weight: 500;
+  color: $color-mainText;
+
+  &:focus,
+  &::target-text {
+    outline: 0;
+    border: 1px solid $color-green;
+  }
+
+  &[type='date' i],
+  &[type='file' i] {
+    cursor: pointer;
+    max-width: 250px;
+  }
+}

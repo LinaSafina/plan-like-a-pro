@@ -1,0 +1,34 @@
+@import '../../sass/_variables.scss';
+
+.to-do-form__title {
+  font-family: $font-caveat;
+  font-size: 4rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  margin-top: 2rem;
+}
+
+.to-do-form__list {
+  margin: 1rem 0 2rem;
+}
+
+.to-do-form__list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: $color-beige;
+  margin: 1rem 0 1rem 2rem;
+  font-size: 1.5rem;
+  max-width: 300px;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+  }
+}
+
+.to-do-form__actions {
+  margin-top: 2rem;
+}

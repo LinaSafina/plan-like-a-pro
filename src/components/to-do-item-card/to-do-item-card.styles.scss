@@ -1,0 +1,63 @@
+@import '../../sass/_variables.scss';
+
+.to-do-item-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  & > svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+  }
+}
+
+.to-do-item-card__title {
+  margin: 1rem 0 2rem;
+  color: $color-vinous;
+  font-size: 3rem;
+  padding-left: 4rem;
+}
+
+.to-do-item-card__description {
+  margin: 5rem 0;
+}
+
+.to-do-item-card__date-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  margin-top: 4rem;
+
+  p:nth-of-type(2) {
+    font-weight: 500;
+
+    .expired {
+      color: $color-expired;
+    }
+
+    .progress {
+      color: $color-inProgress;
+    }
+
+    .completed {
+      color: $color-completed;
+    }
+  }
+}
+
+.to-do-item-card__subtitle {
+  margin-bottom: 0.8rem;
+  color: $color-vinous;
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.to-do-item-card__files-wrapper {
+  .to-do-item-card__list {
+    font-style: italic;
+  }
+}

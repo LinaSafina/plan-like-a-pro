@@ -1,0 +1,48 @@
+@import '../../sass/_variables.scss';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  left: 0;
+  right: 0;
+  background: $color-darkGreen;
+  opacity: 0.7;
+  z-index: 9;
+  display: none;
+
+  &.shown {
+    display: block;
+
+    body & {
+      overflow-y: hidden;
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 99;
+  transition: transform 0.3s ease-in-out;
+  background: white;
+  width: 90vw;
+  max-width: 650px;
+
+  &.shown {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  & > svg {
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}

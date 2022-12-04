@@ -1,0 +1,12 @@
+@import '../../sass/_variables.scss';
+
+.text-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin: 2rem 0 0.5rem;
+  color: $color-darkPink;
+  font-weight: 500;
+}
