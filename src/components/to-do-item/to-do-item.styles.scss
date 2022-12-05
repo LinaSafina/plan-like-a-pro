@@ -13,11 +13,11 @@
 }
 
 .to-do-item {
-  padding: 2rem 3rem;
   margin: 2rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
   &.completed {
     text-decoration: line-through;
@@ -28,8 +28,27 @@
   }
 }
 
-.to-do-item__title {
-  font-size: 2rem;
+.to-do-item--subtask {
+  padding: 3rem 3rem 2rem 5rem;
+
+  .to-do-item__title {
+    font-size: 2rem;
+  }
+}
+
+.to-do-item--task {
+  padding: 2rem 3rem;
+
+  .to-do-item__title {
+    font-size: 2.2rem;
+  }
+}
+
+.to-do-item__parent {
+  font-size: 1rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
 }
 
 .to-do-item__actions {
@@ -63,7 +82,7 @@
   }
 
   &:hover {
-    width: 15rem;
+    width: 18rem;
 
     svg {
       width: 3rem;

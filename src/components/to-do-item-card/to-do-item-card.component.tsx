@@ -3,14 +3,28 @@ import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { TO_DO_STATUS } from '../../api/api';
 import './to-do-item-card.styles.scss';
 import { ToDoItemCardType } from './types';
+import { formatDate } from '../../util';
+import Comments from '../comments/comments.component';
 
 const ToDoItemCard = (props: ToDoItemCardType) => {
-  const { data, setIsEdited } = props;
-  const { title, description, expiryDate, files, status } = data;
+  const { data, setModalType } = props;
+  const {
+    title,
+    description,
+    expiryDate,
+    files,
+    status,
+    id,
+    createDate,
+    parentTodo,
+    priority,
+  } = data;
 
   const handleItemEditing = () => {
-    setIsEdited(true);
+    setModalType('editing');
   };
+
+  const handleShowComments = () => {};
 
   //@ts-ignore
   const fileListContent = files.map((file) => (
@@ -33,7 +47,21 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
     <div className='to-do-item-card'>
       <EditIcon onClick={handleItemEditing} />
       <h2 className='to-do-item-card__title'>{title}</h2>
-      <p className='to-do-item-card__description'>{description}</p>
+      <p className='to-do-item-card__subtitle'>
+        Описание: <span>{description}</span>
+      </p>
+      <p className='to-do-item-card__subtitle'>
+        Номер задачи: <span>{id}</span>
+      </p>
+      <p className='to-do-item-card__subtitle'>
+        Дата создания: <span>{formatDate(createDate)}</span>
+      </p>
+      <p className='to-do-item-card__subtitle'>
+        Время в работе: <span>{formatDate(createDate)}</span>
+      </p>
+      <p className='to-do-item-card__subtitle'>
+        Приоритет: <span>{priority}</span>
+      </p>
       <div className='to-do-item-card__files-wrapper'>
         <p className='to-do-item-card__subtitle'>Прикрепленные файлы:</p>
         {files.length > 0 && (
@@ -48,13 +76,18 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
       <div className='to-do-item-card__date-wrapper'>
         <p className='to-do-item-card__subtitle'>Пожалуйста, сделай до:</p>
         <p>
-          {`${expiryDate.slice(-2)}.${expiryDate.slice(
-            -5,
-            -3
-          )}.${expiryDate.slice(0, 4)}`}{' '}
+          {formatDate(expiryDate)}{' '}
           <span className={statusClasses}>{status}</span>
         </p>
       </div>
+      <button
+        className='to-do-item-card__button button button--light'
+        type='button'
+        onClick={handleShowComments}
+      >
+        Показать комментарии
+      </button>
+      <Comments />
     </div>
   );
 };

@@ -1,35 +1,51 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useParams } from 'react-router-dom';
+//@ts-ignore
+import * as DateJS from 'datejs';
 
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import ToDoItemCard from '../to-do-item-card/to-do-item-card.component';
 import ToDoForm from '../to-do-form/to-do-form.component';
 
 import './modal.styles.scss';
-import { editItem, TO_DO_STATUS } from '../../api/api';
+import { editItem, sendItem, TO_DO_STATUS } from '../../api/api';
 import { ModalProps } from './types';
 import { FilesType } from '../to-do-form/types';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setTodos } from '../../store/todos/todos.action';
+import { todosReducer } from '../../store/todos/todos.reducer';
 
 const defaultFormFields = {
   title: '',
   description: '',
-  expiryDate: '',
+  expiryDate: Date.today().toString('yyyy-MM-dd'),
+  priority: 'низкий',
+  parentTodo: '',
 };
 
 const Modal = (props: ModalProps) => {
-  const { data, isOpen, onClose, isEdited, setIsEdited } = props;
+  const { data, isOpen, onClose, modalType, setModalType } = props;
+  const heading = props?.heading;
 
   const [updatedFiles, setUpdatedFiles] = useState<FilesType[]>([]);
 
+  const { projectId } = useParams();
+
   useEffect(() => {
+    if (modalType === 'creating') {
+      setFormFields((prev) => ({ ...prev, parentTodo: data.id }));
+      return;
+    }
+
     setFormFields({
       title: data.title,
       description: data.description,
       expiryDate: data.expiryDate,
+      priority: data.priority,
       //@ts-ignore
       files: [],
+      parentTodo: data.parentTodo,
     });
 
     setUpdatedFiles(data.files);
@@ -39,7 +55,8 @@ const Modal = (props: ModalProps) => {
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   //@ts-ignore
-  const { title, description, expiryDate, files } = formFields;
+  const { title, description, expiryDate, files, priority, parentTodo } =
+    formFields;
 
   const modalClasses = `modal to-do-card ${isOpen ? 'shown' : ''}`;
   const overlayClasses = `overlay ${isOpen ? 'shown' : ''}`;
@@ -72,39 +89,60 @@ const Modal = (props: ModalProps) => {
       return;
     }
 
-    const newData = await editItem(data.id, {
-      title,
-      description,
-      expiryDate,
-      status:
-        data.status === TO_DO_STATUS.COMPLETED
-          ? TO_DO_STATUS.COMPLETED
-          : TO_DO_STATUS.IN_PROGRESS,
-      files: [...files, ...updatedFiles],
-    });
+    let formData = {};
 
-    dispatch(setTodos(newData));
+    if (modalType === 'editing') {
+      formData = await editItem(data.id, {
+        title,
+        description,
+        expiryDate,
+        projectId,
+        priority,
+        status:
+          data.status === TO_DO_STATUS.COMPLETED
+            ? TO_DO_STATUS.COMPLETED
+            : TO_DO_STATUS.IN_PROGRESS,
+        files: [...files, ...updatedFiles],
+      });
+    }
 
-    setIsEdited(false);
+    if (modalType === 'creating') {
+      formData = await sendItem({
+        title,
+        description,
+        expiryDate,
+        status: TO_DO_STATUS.IN_PROGRESS,
+        files,
+        projectId,
+        priority,
+        parentTodo,
+        createDate: Date.today().toString('yyyy-MM-dd'),
+      });
+    }
+
+    dispatch(setTodos(formData));
+
+    setModalType('view');
 
     onClose();
   };
 
-  const modalContent = isEdited ? (
-    <ToDoForm
-      heading='Только не отодвигай дедлайн!'
-      formFields={formFields}
-      handleFormSubmit={handleFormSubmit}
-      handleInputChange={handleInputChange}
-      formName='edit'
-      buttonText='Сохранить'
-      updatedFiles={updatedFiles}
-      setUpdatedFiles={setUpdatedFiles}
-      min={expiryDate}
-    />
-  ) : (
-    <ToDoItemCard data={data} setIsEdited={setIsEdited} />
-  );
+  const modalContent =
+    modalType === 'view' ? (
+      <ToDoItemCard data={data} setModalType={setModalType} />
+    ) : (
+      <ToDoForm
+        heading={heading || 'Только не отодвигай дедлайн!'}
+        formFields={formFields}
+        handleFormSubmit={handleFormSubmit}
+        handleInputChange={handleInputChange}
+        formName={modalType}
+        buttonText='Сохранить'
+        updatedFiles={updatedFiles}
+        setUpdatedFiles={setUpdatedFiles}
+        min={expiryDate || Date.today().toString('yyyy-MM-dd')}
+      />
+    );
 
   return createPortal(
     <>

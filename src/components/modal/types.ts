@@ -4,8 +4,9 @@ export type ModalProps = {
   data: ToDoType;
   isOpen: boolean;
   onClose: () => void;
-  isEdited: boolean;
-  setIsEdited: (value: boolean) => void;
+  modalType: string;
+  setModalType: (value: string) => void;
+  heading?: string;
 };
 
 export type ToDoType = {
@@ -16,4 +17,7 @@ export type ToDoType = {
   id: string;
   status: string;
   projectId: string;
+  priority: string;
+  parentTodo: string;
+  createDate: string;
 };

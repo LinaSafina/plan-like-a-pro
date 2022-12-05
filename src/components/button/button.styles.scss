@@ -25,3 +25,19 @@
     color: $color-darkPink;
   }
 }
+
+.button--big {
+  padding: 1.5rem 3.5rem;
+  font-size: 2.5rem;
+}
+
+.button--light {
+  border: 1px solid $color-darkPink;
+  background-color: $color-background;
+  color: $color-darkPink;
+
+  &:hover,
+  &:focus {
+    color: $color-background;
+  }
+}

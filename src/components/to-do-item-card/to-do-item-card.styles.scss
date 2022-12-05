@@ -22,10 +22,6 @@
   padding-left: 4rem;
 }
 
-.to-do-item-card__description {
-  margin: 5rem 0;
-}
-
 .to-do-item-card__date-wrapper {
   display: flex;
   flex-direction: column;
@@ -52,12 +48,21 @@
 .to-do-item-card__subtitle {
   margin-bottom: 0.8rem;
   color: $color-vinous;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 1.6rem;
+
+  span {
+    color: $color-mainText;
+    font-weight: 400;
+  }
 }
 
 .to-do-item-card__files-wrapper {
   .to-do-item-card__list {
     font-style: italic;
   }
+}
+
+.to-do-item-card__button {
+  margin: 2rem 0 0;
 }

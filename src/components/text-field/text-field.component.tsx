@@ -1,4 +1,6 @@
+import { ChangeEvent } from 'react';
 import Input from '../input/input.component';
+import Select from '../select/select.component';
 import TextArea from '../text-area/text-area.component';
 
 import './text-field.styles.scss';
@@ -15,6 +17,17 @@ const TextField = (props: TextFieldProps) => {
 
   if (type === 'file') {
     content = <Input type={type} id={id} name={name} {...otherProps} />;
+  }
+
+  if (type === 'select') {
+    content = (
+      <Select
+        name={name}
+        id={id}
+        options={props.options || []}
+        {...otherProps}
+      />
+    );
   }
 
   return (

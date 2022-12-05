@@ -1,0 +1,11 @@
+.tasks__categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.tasks__actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

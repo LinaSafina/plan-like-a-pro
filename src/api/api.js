@@ -4,9 +4,10 @@ import * as DateJS from 'datejs';
 export const apiUrl = 'https://uptrader-to-do-default-rtdb.firebaseio.com';
 
 export const TO_DO_STATUS = {
-  IN_PROGRESS: 'in progress',
+  IN_PROGRESS: 'progress',
   COMPLETED: 'completed',
   EXPIRED: 'expired',
+  QUEUE: 'queue',
 };
 
 export const sendHttpRequest = async (
@@ -41,7 +42,7 @@ export const sendItem = async (body) => {
 export const getTodos = async (url) => {
   const data = await sendHttpRequest(null, url);
 
-  const loadedData = [];
+  const loadedData = { queue: [], progress: [], completed: [] };
 
   for (let key in data) {
     let isExpired = false;
@@ -56,7 +57,9 @@ export const getTodos = async (url) => {
       loadedFiles.push({ id: key, name: data[key].files[key2] }.name);
     }
 
-    loadedData.push({
+    console.log(data[key].status);
+
+    loadedData[data[key].status].push({
       id: key,
       description: '',
       ...data[key],
@@ -117,3 +120,10 @@ export const getProjects = async () => {
 
   return loadedData;
 };
+
+// export const getSubtasks = async (id) => {
+//   const data = await sendHttpRequest(
+//     null,
+//     `${apiUrl}/todos.json?orderBy="parentTodo"&equalTo="${id}"`
+//   );
+// };

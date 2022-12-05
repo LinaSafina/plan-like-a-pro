@@ -8,6 +8,7 @@ import Button from '../button/button.component';
 
 import './to-do-form.styles.scss';
 import { FilesType, ToDoFormProps } from './types';
+import Select from '../select/select.component';
 
 const ToDoForm = (props: ToDoFormProps) => {
   const {
@@ -22,7 +23,7 @@ const ToDoForm = (props: ToDoFormProps) => {
     setUpdatedFiles = () => {},
   } = props;
 
-  const { title, description, expiryDate } = formFields;
+  const { title, description, expiryDate, priority, parentTodo } = formFields;
 
   const handleFileRemoval = (event: React.MouseEvent<SVGSVGElement>) => {
     const { id } = event.target as SVGSVGElement;
@@ -63,6 +64,19 @@ const ToDoForm = (props: ToDoFormProps) => {
           onChange={handleInputChange}
           min={min}
           max={Date.today().add(2).year().toString('yyyy-M-d')}
+        />
+        <TextField
+          name='priority'
+          options={[
+            { name: 'высокий', value: 'high' },
+            { name: 'средний', value: 'middle' },
+            { name: 'низкий', value: 'low' },
+          ]}
+          value={priority}
+          onChange={handleInputChange}
+          label='Приоритет задачи'
+          id={`${formName}-to-do-priority`}
+          type='select'
         />
         <TextField
           type='file'

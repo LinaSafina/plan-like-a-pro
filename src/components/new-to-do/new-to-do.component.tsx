@@ -1,81 +1,83 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-//@ts-ignore
-import * as DateJS from 'datejs';
+// import { useState } from 'react';
+// import { useParams } from 'react-router-dom';
+// //@ts-ignore
+// import * as DateJS from 'datejs';
 
-import ToDoForm from '../to-do-form/to-do-form.component';
+// import ToDoForm from '../to-do-form/to-do-form.component';
 
-import './new-to-do.styles.scss';
-import { sendItem, TO_DO_STATUS } from '../../api/api';
-import { FilesType } from '../to-do-form/types';
-import { useAppDispatch } from '../../store/hooks';
-import { setTodos } from '../../store/todos/todos.action';
+// import './new-to-do.styles.scss';
+// import { sendItem, TO_DO_STATUS } from '../../api/api';
+// import { FilesType } from '../to-do-form/types';
+// import { useAppDispatch } from '../../store/hooks';
+// import { setTodos } from '../../store/todos/todos.action';
 
-const defaultFormFields = {
-  title: '',
-  description: '',
-  expiryDate: Date.today().toString('yyyy-M-d'),
-  files: [],
-};
+// const defaultFormFields = {
+//   title: '',
+//   description: '',
+//   expiryDate: Date.today().toString('yyyy-MM-dd'),
+//   files: [],
+//   priority: 'низкий',
+
+// };
 
 const NewToDo = () => {
-  const [formFields, setFormFields] = useState(defaultFormFields);
-  const { title, description, expiryDate, files } = formFields;
+  // const [formFields, setFormFields] = useState(defaultFormFields);
+  // const { title, description, expiryDate, files } = formFields;
 
-  const { projectId } = useParams();
+  // const { projectId } = useParams();
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type } = event.target;
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value, type } = event.target;
 
-    if (type === 'file') {
-      //@ts-ignore
-      let filesArr = [];
-      const { files } = event.target;
+  //   if (type === 'file') {
+  //     //@ts-ignore
+  //     let filesArr = [];
+  //     const { files } = event.target;
 
-      for (let key in files) {
-        if (!isNaN(parseInt(key))) {
-          filesArr.push({
-            id: `${Math.floor(Math.random() * 10000)}`,
-            //@ts-ignore
-            name: files[key].name,
-          });
-        }
-      }
+  //     for (let key in files) {
+  //       if (!isNaN(parseInt(key))) {
+  //         filesArr.push({
+  //           id: `${Math.floor(Math.random() * 10000)}`,
+  //           //@ts-ignore
+  //           name: files[key].name,
+  //         });
+  //       }
+  //     }
 
-      //@ts-ignore
-      setFormFields((prev) => ({ ...prev, [name]: filesArr }));
-    } else {
-      setFormFields((prev) => ({ ...prev, [name]: value }));
-    }
-  };
+  //     //@ts-ignore
+  //     setFormFields((prev) => ({ ...prev, [name]: filesArr }));
+  //   } else {
+  //     setFormFields((prev) => ({ ...prev, [name]: value }));
+  //   }
+  // };
 
-  const handleFormSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  // const handleFormSubmit = async (event: React.FormEvent) => {
+  //   event.preventDefault();
 
-    if (!title) {
-      alert('Пожалуйста, введите название задачи');
-      return;
-    }
+  //   if (!title) {
+  //     alert('Пожалуйста, введите название задачи');
+  //     return;
+  //   }
 
-    const data = await sendItem({
-      title,
-      description,
-      expiryDate,
-      status: TO_DO_STATUS.IN_PROGRESS,
-      files,
-      projectId,
-    });
+  //   const data = await sendItem({
+  //     title,
+  //     description,
+  //     expiryDate,
+  //     status: TO_DO_STATUS.IN_PROGRESS,
+  //     files,
+  //     projectId,
+  //   });
 
-    dispatch(setTodos(data));
+  //   dispatch(setTodos(data));
 
-    setFormFields(defaultFormFields);
-  };
+  //   setFormFields(defaultFormFields);
+  // };
 
   return (
     <div className='to-do-card'>
-      <ToDoForm
+      {/* <ToDoForm
         heading='Что нужно сделать?'
         formFields={formFields}
         handleInputChange={handleInputChange}
@@ -83,7 +85,7 @@ const NewToDo = () => {
         formName='new'
         buttonText='Добавить'
         min={Date.today().toString('yyyy-M-d')}
-      />
+      /> */}
     </div>
   );
 };

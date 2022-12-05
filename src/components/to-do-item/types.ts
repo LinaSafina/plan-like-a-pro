@@ -3,5 +3,6 @@ export type ToDoItemProps = {
   id: string;
   status: string;
   handleModalOpen: () => void;
-  setIsEdited: (value: boolean) => void;
+  setModalType: (value: string) => void;
+  parentTodo: string;
 };

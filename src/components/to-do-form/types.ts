@@ -14,6 +14,8 @@ export type FormFields = {
   title: string;
   description: string;
   expiryDate: string;
+  priority: string;
+  parentTodo: string;
 };
 
 export type FilesType = {

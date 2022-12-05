@@ -1,5 +1,11 @@
 @import '../../sass/variables';
 
+.projects {
+  margin: 0 auto;
+  max-width: 650px;
+  width: 100%;
+}
+
 .projects__title {
   text-align: center;
   margin: 5rem 0;
