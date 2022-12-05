@@ -1,3 +1,4 @@
+//@ts-ignore
 import * as DateJS from 'datejs';
 
 export const apiUrl = 'https://uptrader-to-do-default-rtdb.firebaseio.com';
@@ -34,11 +35,11 @@ export const sendHttpRequest = async (
 export const sendItem = async (body) => {
   const data = await sendHttpRequest({ body });
 
-  return await getData();
+  return await getTodos();
 };
 
-export const getData = async () => {
-  const data = await sendHttpRequest();
+export const getTodos = async (url) => {
+  const data = await sendHttpRequest(null, url);
 
   const loadedData = [];
 
@@ -73,7 +74,7 @@ export const editItem = async (id, body) => {
     `${apiUrl}/todos/${id}.json`
   );
 
-  return await getData();
+  return await getTodos();
 };
 
 export const editStatus = async (id, status) => {
@@ -89,7 +90,7 @@ export const deleteItem = async (id) => {
     `${apiUrl}/todos/${id}.json`
   );
 
-  return await getData();
+  return await getTodos();
 };
 
 export const taskStatusCheck = async (id, date) => {
@@ -100,4 +101,19 @@ export const taskStatusCheck = async (id, date) => {
   }
 
   return isExpired;
+};
+
+export const getProjects = async () => {
+  const data = await sendHttpRequest(null, `${apiUrl}/projects.json`);
+
+  const loadedData = [];
+
+  for (let key in data) {
+    loadedData.push({
+      id: key,
+      ...data[key],
+    });
+  }
+
+  return loadedData;
 };

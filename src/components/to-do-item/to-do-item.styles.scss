@@ -1,16 +1,23 @@
 @import '../../sass/_variables.scss';
 
+.list-item {
+  cursor: pointer;
+  background: $color-background;
+  border-radius: 10px;
+  position: relative;
+  transition: background-color 0.3s ease-out;
+
+  &:hover {
+    background-color: $color-lightGrey;
+  }
+}
+
 .to-do-item {
   padding: 2rem 3rem;
   margin: 2rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
-  background: $color-background;
-  border-radius: 10px;
-  position: relative;
-  transition: background-color 0.3s ease-out;
 
   &.completed {
     text-decoration: line-through;
@@ -18,10 +25,6 @@
 
   &.expired {
     color: $color-expired;
-  }
-
-  &:hover {
-    background-color: $color-lightGrey;
   }
 }
 

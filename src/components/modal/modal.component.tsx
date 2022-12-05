@@ -1,15 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import ToDoItemCard from '../to-do-item-card/to-do-item-card.component';
 import ToDoForm from '../to-do-form/to-do-form.component';
 
-import { TodosContext } from '../../context/todos.context';
 import './modal.styles.scss';
 import { editItem, TO_DO_STATUS } from '../../api/api';
-import { DataType, ModalProps } from './types';
+import { ModalProps } from './types';
 import { FilesType } from '../to-do-form/types';
+import { useAppDispatch } from '../../store/hooks';
+import { setTodos } from '../../store/todos/todos.action';
 
 const defaultFormFields = {
   title: '',
@@ -34,7 +35,7 @@ const Modal = (props: ModalProps) => {
     setUpdatedFiles(data.files);
   }, [data]);
 
-  const { setTodos } = useContext(TodosContext);
+  const dispatch = useAppDispatch();
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   //@ts-ignore
@@ -82,7 +83,7 @@ const Modal = (props: ModalProps) => {
       files: [...files, ...updatedFiles],
     });
 
-    setTodos(newData);
+    dispatch(setTodos(newData));
 
     setIsEdited(false);
 

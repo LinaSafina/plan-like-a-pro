@@ -1,6 +1,6 @@
-import { DataType } from '../modal/types';
+import { ToDoType } from '../modal/types';
 
 export type ToDoItemCardType = {
-  data: DataType;
+  data: ToDoType;
   setIsEdited: (value: boolean) => void;
 };

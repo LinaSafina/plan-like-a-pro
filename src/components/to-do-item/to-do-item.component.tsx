@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 //@ts-ignore
 import * as DateJS from 'datejs';
 
@@ -10,11 +9,13 @@ import './to-do-item.styles.scss';
 import { deleteItem, editItem, TO_DO_STATUS } from '../../api/api';
 import { TodosContext } from '../../context/todos.context';
 import { ToDoItemProps } from './types';
+import { useAppDispatch } from '../../store/hooks';
+import { setTodos } from '../../store/todos/todos.action';
 
 const ToDoItem = (props: ToDoItemProps) => {
   const { text, id, status, handleModalOpen, setIsEdited } = props;
 
-  const { setTodos } = useContext(TodosContext);
+  const dispatch = useAppDispatch();
 
   const handleItemClick = (event: React.MouseEvent<HTMLLIElement>) => {
     const { tagName } = event.target as HTMLLIElement;
@@ -27,7 +28,7 @@ const ToDoItem = (props: ToDoItemProps) => {
   const handleItemDeletion = async () => {
     const data = await deleteItem(id);
 
-    setTodos(data);
+    dispatch(setTodos(data));
   };
 
   const handleItemCompletion = async () => {
@@ -59,7 +60,7 @@ const ToDoItem = (props: ToDoItemProps) => {
 
   return (
     <li
-      className={`to-do-item ${todoItemClasses}`}
+      className={`to-do-item list-item ${todoItemClasses}`}
       onClick={handleItemClick}
       id={id}
     >

@@ -1,8 +1,11 @@
 @import '../../sass/_variables.scss';
 
-.to-do-form__title {
+.title {
   font-family: $font-caveat;
   font-size: 4rem;
+}
+
+.to-do-form__title {
   text-align: center;
   margin-bottom: 2.5rem;
   margin-top: 2rem;

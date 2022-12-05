@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 //@ts-ignore
 import * as DateJS from 'datejs';
 
@@ -6,8 +7,9 @@ import ToDoForm from '../to-do-form/to-do-form.component';
 
 import './new-to-do.styles.scss';
 import { sendItem, TO_DO_STATUS } from '../../api/api';
-import { TodosContext } from '../../context/todos.context';
 import { FilesType } from '../to-do-form/types';
+import { useAppDispatch } from '../../store/hooks';
+import { setTodos } from '../../store/todos/todos.action';
 
 const defaultFormFields = {
   title: '',
@@ -20,7 +22,9 @@ const NewToDo = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { title, description, expiryDate, files } = formFields;
 
-  const { setTodos } = useContext(TodosContext);
+  const { projectId } = useParams();
+
+  const dispatch = useAppDispatch();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = event.target;
@@ -61,9 +65,10 @@ const NewToDo = () => {
       expiryDate,
       status: TO_DO_STATUS.IN_PROGRESS,
       files,
+      projectId,
     });
 
-    setTodos(data);
+    dispatch(setTodos(data));
 
     setFormFields(defaultFormFields);
   };

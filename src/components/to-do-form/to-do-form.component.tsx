@@ -35,56 +35,58 @@ const ToDoForm = (props: ToDoFormProps) => {
   };
 
   return (
-    <form className='to-do-form' onSubmit={handleFormSubmit}>
-      <h2 className='to-do-form__title'>{heading}</h2>
-      <TextField
-        type='text'
-        id={`${formName}-to-do-title`}
-        name='title'
-        label='* Интересное название:'
-        value={title}
-        onChange={handleInputChange}
-      />
-      <TextField
-        type='textarea'
-        id={`${formName}-to-do-description`}
-        name='description'
-        label='Подробное описание:'
-        value={description}
-        onChange={handleInputChange}
-      />
-      <TextField
-        type='date'
-        id={`${formName}-to-do-date`}
-        name='expiryDate'
-        label='* Обещаю сделать до:'
-        value={expiryDate}
-        onChange={handleInputChange}
-        min={min}
-        max={Date.today().add(2).year().toString('yyyy-M-d')}
-      />
-      <TextField
-        type='file'
-        id={`${formName}-to-do-file`}
-        name='files'
-        label='Прикрепите очень нужные файлы:'
-        onChange={handleInputChange}
-        multiple={true}
-      />
-      {updatedFiles.length > 0 && (
-        <ul className='to-do-form__list'>
-          {updatedFiles.map(({ id, name }) => (
-            <li key={id} className='to-do-form__list-item'>
-              {name}
-              <CloseIcon onClick={handleFileRemoval} id={id} />
-            </li>
-          ))}
-        </ul>
-      )}
-      <div className='to-do-form__actions'>
-        <Button text={buttonText} disabled={!title} />
-      </div>
-    </form>
+    <>
+      <h1 className='to-do-form__title title'>{heading}</h1>
+      <form className='to-do-form' onSubmit={handleFormSubmit}>
+        <TextField
+          type='text'
+          id={`${formName}-to-do-title`}
+          name='title'
+          label='* Интересное название:'
+          value={title}
+          onChange={handleInputChange}
+        />
+        <TextField
+          type='textarea'
+          id={`${formName}-to-do-description`}
+          name='description'
+          label='Подробное описание:'
+          value={description}
+          onChange={handleInputChange}
+        />
+        <TextField
+          type='date'
+          id={`${formName}-to-do-date`}
+          name='expiryDate'
+          label='* Обещаю сделать до:'
+          value={expiryDate}
+          onChange={handleInputChange}
+          min={min}
+          max={Date.today().add(2).year().toString('yyyy-M-d')}
+        />
+        <TextField
+          type='file'
+          id={`${formName}-to-do-file`}
+          name='files'
+          label='Прикрепите очень нужные файлы:'
+          onChange={handleInputChange}
+          multiple={true}
+        />
+        {updatedFiles.length > 0 && (
+          <ul className='to-do-form__list'>
+            {updatedFiles.map(({ id, name }) => (
+              <li key={id} className='to-do-form__list-item'>
+                {name}
+                <CloseIcon onClick={handleFileRemoval} id={id} />
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className='to-do-form__actions'>
+          <Button text={buttonText} disabled={!title} />
+        </div>
+      </form>
+    </>
   );
 };
 

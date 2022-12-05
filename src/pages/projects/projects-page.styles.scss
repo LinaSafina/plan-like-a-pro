@@ -1,0 +1,18 @@
+@import '../../sass/variables';
+
+.projects__title {
+  text-align: center;
+  margin: 5rem 0;
+}
+
+.projects__list-item {
+  padding: 0;
+  margin: 2rem 0;
+  display: flex;
+}
+
+.projects__link {
+  padding: 2rem 3rem;
+  width: 100%;
+  text-align: center;
+}

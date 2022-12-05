@@ -12,6 +12,7 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
     setIsEdited(true);
   };
 
+  //@ts-ignore
   const fileListContent = files.map((file) => (
     <li key={file.id} className='to-do-item-card__list-item'>
       {file.name}

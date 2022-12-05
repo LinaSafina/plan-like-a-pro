@@ -1,11 +1,13 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import ToDoItem from '../to-do-item/to-do-item.component';
 import Modal from '../modal/modal.component';
 
 import './to-do-list.styles.scss';
-import { TodosContext } from '../../context/todos.context';
-import { DataType } from '../modal/types';
+import { ToDoType } from '../modal/types';
+import { useAppSelector } from '../../store/hooks';
+import { selectAllTodos } from '../../store/todos/todos.selector';
 
 const defaultChosenTodo = {
   title: '',
@@ -14,16 +16,19 @@ const defaultChosenTodo = {
   files: [],
   id: '',
   status: '',
+  projectId: '',
 };
 
 const ToDoList = () => {
-  const [chosenToDo, setChosenToDo] = useState<DataType>(defaultChosenTodo);
+  const [chosenToDo, setChosenToDo] = useState<ToDoType>(defaultChosenTodo);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
 
-  const { todos } = useContext(TodosContext);
+  const todos = useAppSelector(selectAllTodos);
 
-  const handleModalOpen = (item: DataType) => {
+  // const { projectId } = useParams();
+
+  const handleModalOpen = (item: ToDoType) => {
     setChosenToDo(item);
     setIsModalOpen(true);
   };
@@ -34,6 +39,7 @@ const ToDoList = () => {
     setIsEdited(false);
   };
 
+  //@ts-ignore
   const todosList = todos.map((item) => {
     const { title, id, status } = item;
 

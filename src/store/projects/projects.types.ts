@@ -1,0 +1,3 @@
+export const PROJECTS_ACTION_TYPES = {
+  SET_PROJECTS: 'SET_PROJECTS',
+};
