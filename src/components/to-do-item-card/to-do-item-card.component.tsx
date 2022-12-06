@@ -18,7 +18,6 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
     status,
     id,
     createDate,
-    parentTodo,
     priority,
   } = data;
 

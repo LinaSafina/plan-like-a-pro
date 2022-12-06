@@ -45,7 +45,7 @@ const NewCommentForm = (props: NewCommentFormProps) => {
   };
 
   return (
-    <form className='comments_form' onSubmit={submitFormHandler}>
+    <form className='comments__form' onSubmit={submitFormHandler}>
       <TextField
         id='new-comment'
         type='textarea'

@@ -99,10 +99,7 @@ const Modal = (props: ModalProps) => {
           expiryDate,
           projectId,
           priority,
-          status:
-            data.status === TO_DO_STATUS.COMPLETED
-              ? TO_DO_STATUS.COMPLETED
-              : TO_DO_STATUS.IN_PROGRESS,
+          status: data.status,
           files: [...files, ...updatedFiles],
         },
         projectId
@@ -115,7 +112,7 @@ const Modal = (props: ModalProps) => {
           title,
           description,
           expiryDate,
-          status: TO_DO_STATUS.IN_PROGRESS,
+          status: TO_DO_STATUS.QUEUE,
           files,
           projectId,
           priority,

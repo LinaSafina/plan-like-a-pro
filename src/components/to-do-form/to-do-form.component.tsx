@@ -62,7 +62,7 @@ const ToDoForm = (props: ToDoFormProps) => {
           value={expiryDate}
           onChange={handleInputChange}
           min={min}
-          max={Date.today().add(2).year().toString('yyyy-M-d')}
+          max={Date.today().add(2).year().toString('yyyy-MM-dd')}
         />
         <TextField
           name='priority'

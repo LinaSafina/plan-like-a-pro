@@ -61,3 +61,21 @@ h6 {
 button {
   font-family: inherit;
 }
+
+@media screen and (max-width: 1200px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 7px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  html {
+    font-size: 6px;
+  }
+}
