@@ -10,7 +10,7 @@ import { getComments } from '../../api/api';
 import { setComments } from '../../store/comments/comments.action';
 
 const CommentsList = (props: CommentsListProps) => {
-  const { parentId, taskId } = props;
+  const { parentId } = props;
 
   const dispatch = useAppDispatch();
   const comments = useAppSelector(selectAllComments);

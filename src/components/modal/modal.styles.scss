@@ -31,7 +31,7 @@
   background: white;
   width: 90vw;
   max-width: 650px;
-  height: 90vh;
+  max-height: 90vh;
 
   &.shown {
     transform: translate(-50%, -50%) scale(1);
@@ -43,6 +43,7 @@
     position: absolute;
     top: 15px;
     right: 15px;
+    z-index: 99;
 
     &:hover {
       opacity: 0.6;

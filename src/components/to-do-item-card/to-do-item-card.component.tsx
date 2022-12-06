@@ -1,3 +1,5 @@
+//@ts-ignore
+import * as DateJS from 'datejs';
 import { useState } from 'react';
 
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
@@ -6,7 +8,7 @@ import Comments from '../comments/comments.component';
 import { TO_DO_STATUS } from '../../api/api';
 import './to-do-item-card.styles.scss';
 import { ToDoItemCardType } from './types';
-import { formatDate } from '../../util';
+import { formatDate, getDateDifference } from '../../util';
 
 const ToDoItemCard = (props: ToDoItemCardType) => {
   const { data, setModalType } = props;
@@ -62,7 +64,13 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
         Дата создания: <span>{formatDate(createDate)}</span>
       </p>
       <p className='to-do-item-card__subtitle'>
-        Время в работе: <span>{formatDate(createDate)}</span>
+        Время в работе:{' '}
+        <span>
+          {getDateDifference(
+            createDate,
+            Date.today().setTimeToNow().toString('yyyy-MM-ddTHH:mm')
+          )}
+        </span>
       </p>
       <p className='to-do-item-card__subtitle'>
         Приоритет: <span>{priority}</span>

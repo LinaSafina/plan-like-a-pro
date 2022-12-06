@@ -55,13 +55,13 @@ const NewCommentForm = (props: NewCommentFormProps) => {
         onChange={inputChangeHandler}
       />
       <Button
-        className='button button--small'
+        className=' button--small'
         text='Добавить комментарий'
         disabled={!newComment}
       />
       {cancelButton && (
         <Button
-          className='button button--small button--light'
+          className=' button--small button--light'
           text='Отменить'
           onClick={props.onCancel}
         />

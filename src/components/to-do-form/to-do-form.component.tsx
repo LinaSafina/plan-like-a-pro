@@ -22,7 +22,7 @@ const ToDoForm = (props: ToDoFormProps) => {
     setUpdatedFiles = () => {},
   } = props;
 
-  const { title, description, expiryDate, priority, parentTodo } = formFields;
+  const { title, description, expiryDate, priority } = formFields;
 
   const handleFileRemoval = (event: React.MouseEvent<SVGSVGElement>) => {
     const { id } = event.target as SVGSVGElement;
@@ -55,14 +55,14 @@ const ToDoForm = (props: ToDoFormProps) => {
           onChange={handleInputChange}
         />
         <TextField
-          type='date'
+          type='datetime-local'
           id={`${formName}-to-do-date`}
           name='expiryDate'
           label='* Обещаю сделать до:'
-          value={expiryDate}
+          value={expiryDate || min}
           onChange={handleInputChange}
           min={min}
-          max={Date.today().add(2).year().toString('yyyy-MM-dd')}
+          max={Date.today().add(2).year().toString('yyyy-MM-ddTHH:mm')}
         />
         <TextField
           name='priority'

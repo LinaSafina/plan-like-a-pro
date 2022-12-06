@@ -18,7 +18,7 @@ import { setTodos } from '../../store/todos/todos.action';
 const defaultFormFields = {
   title: '',
   description: '',
-  expiryDate: Date.today().toString('yyyy-MM-dd'),
+  expiryDate: Date.today().setTimeToNow().toString('yyyy-MM-ddTHH:mm'),
   priority: 'низкий',
   parentTodo: '',
 };
@@ -31,9 +31,16 @@ const Modal = (props: ModalProps) => {
 
   const { projectId } = useParams();
 
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  //@ts-ignore
+  const { title, description, expiryDate, files, priority, parentTodo } =
+    formFields;
+
   useEffect(() => {
     if (modalType === 'creating') {
-      setFormFields((prev) => ({ ...prev, parentTodo: data.id }));
+      setFormFields((prev) => {
+        return { ...defaultFormFields, parentTodo: data.id };
+      });
       return;
     }
 
@@ -51,11 +58,6 @@ const Modal = (props: ModalProps) => {
   }, [data]);
 
   const dispatch = useAppDispatch();
-
-  const [formFields, setFormFields] = useState(defaultFormFields);
-  //@ts-ignore
-  const { title, description, expiryDate, files, priority, parentTodo } =
-    formFields;
 
   const modalClasses = `modal to-do-card ${isOpen ? 'shown' : ''}`;
   const overlayClasses = `overlay ${isOpen ? 'shown' : ''}`;
@@ -117,7 +119,7 @@ const Modal = (props: ModalProps) => {
           projectId,
           priority,
           parentTodo,
-          createDate: Date.today().toString('yyyy-MM-dd'),
+          createDate: Date.today().setTimeToNow().toString('yyyy-MM-ddTHH:mm'),
         },
         projectId
       );
@@ -143,7 +145,9 @@ const Modal = (props: ModalProps) => {
         buttonText='Сохранить'
         updatedFiles={updatedFiles}
         setUpdatedFiles={setUpdatedFiles}
-        min={expiryDate || Date.today().toString('yyyy-MM-dd')}
+        min={
+          expiryDate || Date.today().setTimeToNow().toString('yyyy-MM-ddTHH:mm')
+        }
       />
     );
 

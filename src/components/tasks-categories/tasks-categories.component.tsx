@@ -19,7 +19,7 @@ import { setTodos } from '../../store/todos/todos.action';
 const defaultChosenTodo = {
   title: '',
   description: '',
-  expiryDate: '',
+  expiryDate: Date.today().setTimeToNow().toString('yyyy-MM-ddTHH:mm'),
   files: [],
   id: '',
   status: '',
@@ -112,6 +112,7 @@ const TasksCategories = () => {
         <div className='tasks__actions'>
           <button
             className='tasks__add-todo button button--big'
+            type='button'
             onClick={handleButtonClick}
           >
             Добавить задачу
