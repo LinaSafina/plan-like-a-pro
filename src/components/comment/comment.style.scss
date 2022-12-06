@@ -1,0 +1,37 @@
+@import '../../sass/variables';
+
+.comment {
+  border-left: 1px solid $color-lightGrey;
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.comment__text {
+  font-size: 1.5rem;
+}
+
+.comment__actions {
+  display: flex;
+}
+
+.comment__action-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-left: 3rem;
+  cursor: pointer;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  svg {
+    cursor: pointer;
+    width: 20px;
+  }
+
+  span {
+    margin-left: 1rem;
+  }
+}

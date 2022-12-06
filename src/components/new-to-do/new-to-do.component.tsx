@@ -6,7 +6,7 @@
 // import ToDoForm from '../to-do-form/to-do-form.component';
 
 // import './new-to-do.styles.scss';
-// import { sendItem, TO_DO_STATUS } from '../../api/api';
+// import { sendTodo, TO_DO_STATUS } from '../../api/api';
 // import { FilesType } from '../to-do-form/types';
 // import { useAppDispatch } from '../../store/hooks';
 // import { setTodos } from '../../store/todos/todos.action';
@@ -61,7 +61,7 @@ const NewToDo = () => {
   //     return;
   //   }
 
-  //   const data = await sendItem({
+  //   const data = await sendTodo({
   //     title,
   //     description,
   //     expiryDate,

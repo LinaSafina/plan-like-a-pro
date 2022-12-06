@@ -34,8 +34,6 @@ const TasksCategories = () => {
   const progressToDos = useAppSelector(selectProgressToDos);
   const completedToDos = useAppSelector(selectCompletedToDos);
 
-  console.log(queueToDos, progressToDos, completedToDos);
-
   const handleModalOpen = (item: ToDoType) => {
     setChosenToDo(item);
     setIsModalOpen(true);

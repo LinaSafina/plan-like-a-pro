@@ -33,7 +33,7 @@ export const sendHttpRequest = async (
   return await response.json();
 };
 
-export const sendItem = async (body) => {
+export const sendTodo = async (body) => {
   const data = await sendHttpRequest({ body });
 
   return await getTodos();
@@ -56,8 +56,6 @@ export const getTodos = async (url) => {
     for (let key2 in data[key].files) {
       loadedFiles.push({ id: key, name: data[key].files[key2] }.name);
     }
-
-    console.log(data[key].status);
 
     loadedData[data[key].status].push({
       id: key,
@@ -119,6 +117,66 @@ export const getProjects = async () => {
   }
 
   return loadedData;
+};
+
+export const getComments = async (parentId) => {
+  const data = await sendHttpRequest(
+    null,
+    `${apiUrl}/comments.json?orderBy="parentId"&&equalTo="${parentId}"`
+  );
+
+  const loadedData = {};
+
+  for (let key in data) {
+    if (loadedData[parentId]) {
+      loadedData[parentId].push({
+        id: key,
+        ...data[key],
+      });
+    } else {
+      loadedData[parentId] = [
+        {
+          id: key,
+          ...data[key],
+        },
+      ];
+    }
+  }
+
+  return loadedData;
+};
+
+// export const getSubComments = async (parentId) => {
+//   const data = await sendHttpRequest(
+//     null,
+//     `${apiUrl}/comments.json?orderBy="parentId"&&equalTo="${parentId}"`
+//   );
+
+//   const loadedData = [];
+
+//   for (let key in data) {
+//     loadedData.push({
+//       id: key,
+//       ...data[key],
+//     });
+//   }
+
+//   return loadedData;
+// };
+
+export const sendComment = async (body, parentId) => {
+  const data = await sendHttpRequest({ body }, `${apiUrl}/comments.json`);
+
+  return await getComments(parentId);
+};
+
+export const deleteComment = async (id, parentId) => {
+  const data = await sendHttpRequest(
+    { method: 'DELETE' },
+    `${apiUrl}/comments/${id}.json`
+  );
+
+  return await getComments(parentId);
 };
 
 // export const getSubtasks = async (id) => {

@@ -9,7 +9,6 @@ export const todosReducer = (state = INITIAL_STATE, action: ActionType) => {
 
   switch (type) {
     case TODOS_ACTION_TYPES.SET_TODOS:
-      console.log(payload);
       return payload;
     default:
       return state;

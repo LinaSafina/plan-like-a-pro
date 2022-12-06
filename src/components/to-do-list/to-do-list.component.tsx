@@ -13,8 +13,6 @@ import { ToDoListProps } from './types';
 const ToDoList = (props: ToDoListProps) => {
   const { handleModalOpen, setModalType, heading, todos } = props;
 
-  // const { projectId } = useParams();
-  console.log(todos);
   //@ts-ignore
   const todosList = todos.map((item) => {
     const { title, id, status, parentTodo } = item;

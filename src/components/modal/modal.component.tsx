@@ -9,7 +9,7 @@ import ToDoItemCard from '../to-do-item-card/to-do-item-card.component';
 import ToDoForm from '../to-do-form/to-do-form.component';
 
 import './modal.styles.scss';
-import { editItem, sendItem, TO_DO_STATUS } from '../../api/api';
+import { editItem, sendTodo, TO_DO_STATUS } from '../../api/api';
 import { ModalProps } from './types';
 import { FilesType } from '../to-do-form/types';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -107,7 +107,7 @@ const Modal = (props: ModalProps) => {
     }
 
     if (modalType === 'creating') {
-      formData = await sendItem({
+      formData = await sendTodo({
         title,
         description,
         expiryDate,

@@ -1,10 +1,12 @@
+import { useState } from 'react';
+
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
+import Comments from '../comments/comments.component';
 
 import { TO_DO_STATUS } from '../../api/api';
 import './to-do-item-card.styles.scss';
 import { ToDoItemCardType } from './types';
 import { formatDate } from '../../util';
-import Comments from '../comments/comments.component';
 
 const ToDoItemCard = (props: ToDoItemCardType) => {
   const { data, setModalType } = props;
@@ -20,11 +22,15 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
     priority,
   } = data;
 
+  const [areCommentsShown, setAreCommentsShown] = useState(false);
+
   const handleItemEditing = () => {
     setModalType('editing');
   };
 
-  const handleShowComments = () => {};
+  const handleShowComments = () => {
+    setAreCommentsShown((prevState) => !prevState);
+  };
 
   //@ts-ignore
   const fileListContent = files.map((file) => (
@@ -85,9 +91,9 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
         type='button'
         onClick={handleShowComments}
       >
-        Показать комментарии
+        {areCommentsShown ? 'Скрыть комментарии' : 'Показать комментарии'}
       </button>
-      <Comments />
+      {areCommentsShown && <Comments taskId={id} />}
     </div>
   );
 };

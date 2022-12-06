@@ -3,7 +3,7 @@
 .button {
   cursor: pointer;
   padding: 1rem 3rem;
-  border: none;
+  border: 1px solid $color-darkPink;
   border-radius: 0;
   background-color: $color-darkPink;
   color: $color-background;
@@ -29,6 +29,11 @@
 .button--big {
   padding: 1.5rem 3.5rem;
   font-size: 2.5rem;
+}
+
+.button--small {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
 }
 
 .button--light {
