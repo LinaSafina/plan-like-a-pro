@@ -92,32 +92,39 @@ const Modal = (props: ModalProps) => {
     let formData = {};
 
     if (modalType === 'editing') {
-      formData = await editItem(data.id, {
-        title,
-        description,
-        expiryDate,
-        projectId,
-        priority,
-        status:
-          data.status === TO_DO_STATUS.COMPLETED
-            ? TO_DO_STATUS.COMPLETED
-            : TO_DO_STATUS.IN_PROGRESS,
-        files: [...files, ...updatedFiles],
-      });
+      formData = await editItem(
+        data.id,
+        {
+          title,
+          description,
+          expiryDate,
+          projectId,
+          priority,
+          status:
+            data.status === TO_DO_STATUS.COMPLETED
+              ? TO_DO_STATUS.COMPLETED
+              : TO_DO_STATUS.IN_PROGRESS,
+          files: [...files, ...updatedFiles],
+        },
+        projectId
+      );
     }
 
     if (modalType === 'creating') {
-      formData = await sendTodo({
-        title,
-        description,
-        expiryDate,
-        status: TO_DO_STATUS.IN_PROGRESS,
-        files,
-        projectId,
-        priority,
-        parentTodo,
-        createDate: Date.today().toString('yyyy-MM-dd'),
-      });
+      formData = await sendTodo(
+        {
+          title,
+          description,
+          expiryDate,
+          status: TO_DO_STATUS.IN_PROGRESS,
+          files,
+          projectId,
+          priority,
+          parentTodo,
+          createDate: Date.today().toString('yyyy-MM-dd'),
+        },
+        projectId
+      );
     }
 
     dispatch(setTodos(formData));

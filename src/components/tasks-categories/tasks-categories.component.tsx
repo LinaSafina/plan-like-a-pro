@@ -14,6 +14,7 @@ import {
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { editItem, editStatus } from '../../api/api';
 import { setTodos } from '../../store/todos/todos.action';
+import { useParams } from 'react-router';
 
 const defaultChosenTodo = {
   title: '',
@@ -38,6 +39,8 @@ const TasksCategories = () => {
   const completedToDos = useAppSelector(selectCompletedToDos);
 
   const dispatch = useAppDispatch();
+
+  const { projectId } = useParams();
 
   const handleModalOpen = (item: ToDoType) => {
     setChosenToDo(item);
@@ -71,15 +74,13 @@ const TasksCategories = () => {
       return;
     }
 
-    // let add;
-    // let queue = queueToDos;
-    // let completed = completedToDos;
-    // let progress = progressToDos;
-    console.log();
-
-    const data = await editItem(draggableId, {
-      status: destination.droppableId,
-    });
+    const data = await editItem(
+      draggableId,
+      {
+        status: destination.droppableId,
+      },
+      projectId
+    );
 
     dispatch(setTodos(data));
   };

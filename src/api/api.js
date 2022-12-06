@@ -33,14 +33,17 @@ export const sendHttpRequest = async (
   return await response.json();
 };
 
-export const sendTodo = async (body) => {
+export const sendTodo = async (body, projectId) => {
   const data = await sendHttpRequest({ body });
 
-  return await getTodos();
+  return await getTodos(projectId);
 };
 
-export const getTodos = async (url) => {
-  const data = await sendHttpRequest(null, url);
+export const getTodos = async (projectId) => {
+  let data = await sendHttpRequest(
+    null,
+    `${apiUrl}/todos.json?orderBy="projectId"&&equalTo="${projectId}"`
+  );
 
   const loadedData = { queue: [], progress: [], completed: [] };
 
@@ -69,13 +72,13 @@ export const getTodos = async (url) => {
   return loadedData;
 };
 
-export const editItem = async (id, body) => {
+export const editItem = async (id, body, projectId) => {
   const data = await sendHttpRequest(
     { method: 'PATCH', body },
     `${apiUrl}/todos/${id}.json`
   );
 
-  return await getTodos();
+  return await getTodos(projectId);
 };
 
 export const editStatus = async (id, status) => {
@@ -85,13 +88,13 @@ export const editStatus = async (id, status) => {
   );
 };
 
-export const deleteItem = async (id) => {
+export const deleteItem = async (id, projectId) => {
   const data = await sendHttpRequest(
     { method: 'DELETE' },
     `${apiUrl}/todos/${id}.json`
   );
 
-  return await getTodos();
+  return await getTodos(projectId);
 };
 
 export const taskStatusCheck = async (id, date) => {

@@ -12,12 +12,15 @@ import { ToDoItemProps } from './types';
 import { useAppDispatch } from '../../store/hooks';
 import { setTodos } from '../../store/todos/todos.action';
 import { Draggable } from 'react-beautiful-dnd';
+import { useParams } from 'react-router';
 
 const ToDoItem = (props: ToDoItemProps) => {
   const { text, id, status, handleModalOpen, setModalType, parentTodo, index } =
     props;
 
   const dispatch = useAppDispatch();
+
+  const { projectId } = useParams();
 
   const handleItemClick = async (event: React.MouseEvent<HTMLLIElement>) => {
     const { tagName } = event.target as HTMLLIElement;
@@ -28,7 +31,7 @@ const ToDoItem = (props: ToDoItemProps) => {
   };
 
   const handleItemDeletion = async () => {
-    const data = await deleteItem(id);
+    const data = await deleteItem(id, projectId);
 
     dispatch(setTodos(data));
   };
@@ -37,7 +40,7 @@ const ToDoItem = (props: ToDoItemProps) => {
     const newStatus =
       status === TO_DO_STATUS.COMPLETED ? 'progress' : TO_DO_STATUS.COMPLETED;
 
-    const data = await editItem(id, { status: newStatus });
+    const data = await editItem(id, { status: newStatus }, projectId);
 
     dispatch(setTodos(data));
   };

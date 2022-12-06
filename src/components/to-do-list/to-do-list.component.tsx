@@ -37,9 +37,7 @@ const ToDoList = (props: ToDoListProps) => {
           >
             {todos.length > 0 && todosList}
             {todos.length === 0 && (
-              <li className='to-do-item list-item to-do-item--task'>
-                Нет задач
-              </li>
+              <li className='tasks__empty-list'>Нет задач</li>
             )}
             {provided.placeholder}
           </ul>
