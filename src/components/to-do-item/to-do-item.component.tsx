@@ -1,5 +1,7 @@
 //@ts-ignore
 import * as DateJS from 'datejs';
+import { Draggable } from 'react-beautiful-dnd';
+import { useParams } from 'react-router';
 
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/bin.svg';
@@ -11,8 +13,6 @@ import { deleteItem, editItem, TO_DO_STATUS } from '../../api/api';
 import { ToDoItemProps } from './types';
 import { useAppDispatch } from '../../store/hooks';
 import { setTodos } from '../../store/todos/todos.action';
-import { Draggable } from 'react-beautiful-dnd';
-import { useParams } from 'react-router';
 
 const ToDoItem = (props: ToDoItemProps) => {
   const { text, id, status, handleModalOpen, setModalType, parentTodo, index } =

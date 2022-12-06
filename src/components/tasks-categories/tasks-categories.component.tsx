@@ -1,20 +1,20 @@
 import { useState } from 'react';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { useParams } from 'react-router';
 
 import ToDoList from '../to-do-list/to-do-list.component';
+import Modal from '../modal/modal.component';
 
 import { ToDoType } from '../modal/types';
 import './tasks-categories.styles.scss';
-import Modal from '../modal/modal.component';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   selectQueueToDos,
   selectCompletedToDos,
   selectProgressToDos,
 } from '../../store/todos/todos.selector';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { editItem, editStatus } from '../../api/api';
+import { editItem } from '../../api/api';
 import { setTodos } from '../../store/todos/todos.action';
-import { useParams } from 'react-router';
 
 const defaultChosenTodo = {
   title: '',

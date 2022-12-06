@@ -3,14 +3,12 @@ import { useState } from 'react';
 import { ReactComponent as CommentIcon } from '../../assets/comment.svg';
 import { ReactComponent as EyeIcon } from '../../assets/eye.svg';
 import { ReactComponent as BinIcon } from '../../assets/bin.svg';
+import NewCommentForm from '../new-comment-form/new-comment-form.component';
+import CommentsList from '../comments-list/comments-list.component';
 
 import { CommentProps } from './types';
 import './comment.style.scss';
-import NewCommentForm from '../new-comment-form/new-comment-form.component';
-import { deleteComment, getComments } from '../../api/api';
-import { CommentsType } from '../../store/comments/comments.reducer';
-import Comments from '../comments/comments.component';
-import CommentsList from '../comments-list/comments-list.component';
+import { deleteComment } from '../../api/api';
 import { setComments } from '../../store/comments/comments.action';
 import { useAppDispatch } from '../../store/hooks';
 

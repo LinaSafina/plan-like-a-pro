@@ -1,5 +1,3 @@
-import { OptionalEventProperties } from 'react-dom/test-utils';
-
 export type TextFieldProps = {
   type: string;
   id: string;

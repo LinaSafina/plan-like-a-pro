@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import ProjectsPage from './pages/projects/projects-page';
-import TasksPage from './pages/tasks/tasks-page';
+
+import ProjectsPage from './pages/projects/projects-page.component';
+import TasksPage from './pages/tasks/tasks-page.component';
 
 import './App.scss';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 //@ts-ignore
 import * as DateJS from 'datejs';
 
@@ -8,7 +8,6 @@ import Button from '../button/button.component';
 
 import './to-do-form.styles.scss';
 import { FilesType, ToDoFormProps } from './types';
-import Select from '../select/select.component';
 
 const ToDoForm = (props: ToDoFormProps) => {
   const {

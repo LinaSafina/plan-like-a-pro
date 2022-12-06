@@ -33,6 +33,7 @@ export const sendHttpRequest = async (
   return await response.json();
 };
 
+//ToDos
 export const sendTodo = async (body, projectId) => {
   const data = await sendHttpRequest({ body });
 
@@ -106,7 +107,9 @@ export const taskStatusCheck = async (id, date) => {
 
   return isExpired;
 };
+//End of ToDos
 
+//Projects
 export const getProjects = async () => {
   const data = await sendHttpRequest(null, `${apiUrl}/projects.json`);
 
@@ -121,7 +124,9 @@ export const getProjects = async () => {
 
   return loadedData;
 };
+//End of Projects
 
+//Comments
 export const getComments = async (parentId) => {
   const data = await sendHttpRequest(
     null,
@@ -149,24 +154,6 @@ export const getComments = async (parentId) => {
   return loadedData;
 };
 
-// export const getSubComments = async (parentId) => {
-//   const data = await sendHttpRequest(
-//     null,
-//     `${apiUrl}/comments.json?orderBy="parentId"&&equalTo="${parentId}"`
-//   );
-
-//   const loadedData = [];
-
-//   for (let key in data) {
-//     loadedData.push({
-//       id: key,
-//       ...data[key],
-//     });
-//   }
-
-//   return loadedData;
-// };
-
 export const sendComment = async (body, parentId) => {
   const data = await sendHttpRequest({ body }, `${apiUrl}/comments.json`);
 
@@ -181,10 +168,4 @@ export const deleteComment = async (id, parentId) => {
 
   return await getComments(parentId);
 };
-
-// export const getSubtasks = async (id) => {
-//   const data = await sendHttpRequest(
-//     null,
-//     `${apiUrl}/todos.json?orderBy="parentTodo"&equalTo="${id}"`
-//   );
-// };
+//End of Comments

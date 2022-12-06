@@ -12,9 +12,8 @@ import './modal.styles.scss';
 import { editItem, sendTodo, TO_DO_STATUS } from '../../api/api';
 import { ModalProps } from './types';
 import { FilesType } from '../to-do-form/types';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
 import { setTodos } from '../../store/todos/todos.action';
-import { todosReducer } from '../../store/todos/todos.reducer';
 
 const defaultFormFields = {
   title: '',

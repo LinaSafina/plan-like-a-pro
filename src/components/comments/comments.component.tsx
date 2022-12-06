@@ -8,9 +8,6 @@ import './comments.style.scss';
 import { CommentsProps } from './types';
 import { getComments, sendComment } from '../../api/api';
 import NewCommentForm from '../new-comment-form/new-comment-form.component';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setComments } from '../../store/comments/comments.action';
-import { selectAllComments } from '../../store/comments/comments.selector';
 import CommentsList from '../comments-list/comments-list.component';
 
 const Comments = (props: CommentsProps) => {

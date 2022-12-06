@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getProjects } from '../../api/api';
@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectAllProjects } from '../../store/projects/projects.selector';
 
 const ProjectsPage = () => {
-  // const [projects, setProjects] = useState<ProjectsType>([]);
   const dispatch = useAppDispatch();
   const projects = useAppSelector(selectAllProjects);
 

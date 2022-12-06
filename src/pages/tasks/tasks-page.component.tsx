@@ -6,7 +6,7 @@ import * as DateJS from 'datejs';
 import TasksCategories from '../../components/tasks-categories/tasks-categories.component';
 import TextField from '../../components/text-field/text-field.component';
 
-import { apiUrl, getTodos } from '../../api/api';
+import { getTodos } from '../../api/api';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setTodos } from '../../store/todos/todos.action';
 import './tasks-page.styles.scss';
@@ -17,7 +17,6 @@ const TasksPage = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const dispatch = useAppDispatch();
-  const todos = useAppSelector(selectAllTodos);
 
   const { projectId } = useParams();
 
