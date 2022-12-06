@@ -5,4 +5,5 @@ export type ToDoItemProps = {
   handleModalOpen: () => void;
   setModalType: (value: string) => void;
   parentTodo: string;
+  index: number;
 };

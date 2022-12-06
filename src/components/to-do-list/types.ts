@@ -5,4 +5,5 @@ export type ToDoListProps = {
   setModalType: (value: string) => void;
   heading: string;
   todos: ToDoType[];
+  id: string;
 };

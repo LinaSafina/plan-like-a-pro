@@ -3,9 +3,6 @@ import { useParams } from 'react-router-dom';
 //@ts-ignore
 import * as DateJS from 'datejs';
 
-import NewToDo from '../../components/new-to-do/new-to-do.component';
-import ToDoList from '../../components/to-do-list/to-do-list.component';
-
 import { apiUrl, getTodos, taskStatusCheck, TO_DO_STATUS } from '../../api/api';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectAllTodos } from '../../store/todos/todos.selector';

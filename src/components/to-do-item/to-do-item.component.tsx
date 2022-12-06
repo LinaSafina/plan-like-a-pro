@@ -11,9 +11,11 @@ import { deleteItem, editItem, TO_DO_STATUS } from '../../api/api';
 import { ToDoItemProps } from './types';
 import { useAppDispatch } from '../../store/hooks';
 import { setTodos } from '../../store/todos/todos.action';
+import { Draggable } from 'react-beautiful-dnd';
 
 const ToDoItem = (props: ToDoItemProps) => {
-  const { text, id, status, handleModalOpen, setModalType, parentTodo } = props;
+  const { text, id, status, handleModalOpen, setModalType, parentTodo, index } =
+    props;
 
   const dispatch = useAppDispatch();
 
@@ -63,22 +65,29 @@ const ToDoItem = (props: ToDoItemProps) => {
   }
 
   return (
-    <li
-      className={`to-do-item list-item ${todoItemClasses} ${
-        parentTodo ? 'to-do-item--subtask' : 'to-do-item--task'
-      }`}
-      onClick={handleItemClick}
-      id={id}
-    >
-      {parentTodo && <div className='to-do-item__parent'>{parentTodo}</div>}
-      <h3 className='to-do-item__title'>{text}</h3>
-      <div className='to-do-item__actions'>
-        <DeleteIcon onClick={handleItemDeletion} />
-        <DoneIcon onClick={handleItemCompletion} />
-        <PlusIcon onClick={handleSubtaskAddition} />
-        <EditIcon onClick={handleItemEditing} />
-      </div>
-    </li>
+    <Draggable draggableId={id} index={index}>
+      {(provided) => (
+        <li
+          className={`to-do-item list-item ${todoItemClasses} ${
+            parentTodo ? 'to-do-item--subtask' : 'to-do-item--task'
+          }`}
+          onClick={handleItemClick}
+          id={id}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          {parentTodo && <div className='to-do-item__parent'>{parentTodo}</div>}
+          <h3 className='to-do-item__title'>{text}</h3>
+          <div className='to-do-item__actions'>
+            <DeleteIcon onClick={handleItemDeletion} />
+            <DoneIcon onClick={handleItemCompletion} />
+            <PlusIcon onClick={handleSubtaskAddition} />
+            <EditIcon onClick={handleItemEditing} />
+          </div>
+        </li>
+      )}
+    </Draggable>
   );
 };
 

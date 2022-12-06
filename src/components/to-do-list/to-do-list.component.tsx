@@ -1,25 +1,20 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-
 import ToDoItem from '../to-do-item/to-do-item.component';
-import Modal from '../modal/modal.component';
 
 import './to-do-list.styles.scss';
-import { ToDoType } from '../modal/types';
-import { useAppSelector } from '../../store/hooks';
-import { selectAllTodos } from '../../store/todos/todos.selector';
 import { ToDoListProps } from './types';
+import { Droppable } from 'react-beautiful-dnd';
 
 const ToDoList = (props: ToDoListProps) => {
-  const { handleModalOpen, setModalType, heading, todos } = props;
+  const { handleModalOpen, setModalType, heading, todos, id } = props;
 
   //@ts-ignore
-  const todosList = todos.map((item) => {
+  const todosList = todos.map((item, index) => {
     const { title, id, status, parentTodo } = item;
 
     return (
       <ToDoItem
         key={id}
+        index={index}
         text={title}
         id={id}
         status={status}
@@ -33,7 +28,23 @@ const ToDoList = (props: ToDoListProps) => {
   return (
     <div className='tasks__category'>
       <h2 className='tasks__title'>{heading}</h2>
-      {todos.length > 0 && <ul className='to-do-list'>{todosList}</ul>}
+      <Droppable droppableId={id}>
+        {(provided) => (
+          <ul
+            className='to-do-list'
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {todos.length > 0 && todosList}
+            {todos.length === 0 && (
+              <li className='to-do-item list-item to-do-item--task'>
+                Нет задач
+              </li>
+            )}
+            {provided.placeholder}
+          </ul>
+        )}
+      </Droppable>
     </div>
   );
 };

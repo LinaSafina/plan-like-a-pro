@@ -3,6 +3,7 @@ import ProjectsPage from './pages/projects/projects-page';
 import TasksPage from './pages/tasks/tasks-page';
 
 import './App.scss';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 function App() {
   return (
