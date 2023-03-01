@@ -37,9 +37,7 @@ const NewCommentForm = (props: NewCommentFormProps) => {
 
     setNewComment('');
 
-    {
-      props.onCancel && props.onCancel();
-    }
+    props.onCancel && props.onCancel();
   };
 
   return (

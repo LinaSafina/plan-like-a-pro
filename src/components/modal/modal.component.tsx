@@ -38,7 +38,7 @@ const Modal = (props: ModalProps) => {
 
   useEffect(() => {
     if (modalType === 'creating') {
-      setFormFields((prev) => {
+      setFormFields(() => {
         return { ...defaultFormFields, parentTodo: data.id };
       });
       return;
@@ -54,7 +54,7 @@ const Modal = (props: ModalProps) => {
     });
 
     setUpdatedFiles(data.files);
-  }, [data]);
+  }, [data, modalType]);
 
   const dispatch = useDispatch();
 

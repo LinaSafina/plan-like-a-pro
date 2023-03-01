@@ -1,4 +1,3 @@
-import { ProjectsType } from '../../pages/projects/types';
 import {
   FetchProjectsFailure,
   FetchProjectsStart,

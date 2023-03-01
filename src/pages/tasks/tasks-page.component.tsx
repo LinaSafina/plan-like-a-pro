@@ -18,7 +18,7 @@ const TasksPage = () => {
 
   useEffect(() => {
     dispatch(getTodosStart(projectId));
-  }, []);
+  }, [dispatch, projectId]);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -28,7 +28,7 @@ const TasksPage = () => {
 
   useEffect(() => {
     dispatch(getTodosStart(projectId, searchValue));
-  }, [searchValue]);
+  }, [searchValue, projectId, dispatch]);
 
   return (
     <div className='container'>

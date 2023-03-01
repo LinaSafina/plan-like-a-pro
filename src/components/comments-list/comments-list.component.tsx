@@ -16,7 +16,7 @@ const CommentsList = (props: CommentsListProps) => {
 
   useEffect(() => {
     dispatch(fetchCommentsStart(parentId));
-  }, []);
+  }, [parentId, dispatch]);
 
   let commentsList: JSX.Element | JSX.Element[] = (
     <p className='comments__list' style={{ fontSize: '1rem' }}>

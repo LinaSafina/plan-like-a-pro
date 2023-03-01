@@ -1,6 +1,5 @@
-import { Action, ActionWithPayload, createAction } from '../utils';
-import { CommentsState, CommentsType } from './comments.reducer';
-import { CommentsData } from './comments.saga';
+import { ActionWithPayload, createAction } from '../utils';
+import { CommentsType } from './comments.reducer';
 import { COMMENTS_ACTION_TYPES } from './comments.types';
 
 export type CreateCommentStart = ActionWithPayload<

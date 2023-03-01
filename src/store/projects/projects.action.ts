@@ -1,4 +1,3 @@
-import { ProjectsType } from '../../pages/projects/types';
 import { Action, ActionWithPayload, createAction } from '../utils';
 import { ProjectsData } from './projects.saga';
 import { PROJECTS_ACTION_TYPES } from './projects.types';
