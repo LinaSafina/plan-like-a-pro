@@ -12,7 +12,7 @@ const ProjectsPage = () => {
 
   useEffect(() => {
     dispatch(fetchProjectsStart());
-  }, []);
+  }, [dispatch]);
 
   const projectList = projects.map(({ name, id }) => (
     <li key={id} className='projects__list-item list-item'>
