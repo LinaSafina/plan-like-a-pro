@@ -16,28 +16,8 @@ const TasksPage = () => {
 
   const { projectId } = useParams();
 
-  let tomorrow = Date.today().add(1).day();
-
   useEffect(() => {
     dispatch(getTodosStart(projectId));
-  }, []);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      const checkStatus = async () => {
-        if (tomorrow.compareTo(Date.today().setTimeToNow()) !== -1) {
-          return;
-        }
-
-        dispatch(getTodosStart(projectId));
-
-        tomorrow = Date.today().add(1).day();
-      };
-
-      checkStatus();
-    }, 1000);
-
-    return () => clearInterval(intervalId);
   }, []);
 
   const handleSearchInputChange = (

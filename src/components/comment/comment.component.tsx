@@ -34,10 +34,6 @@ const Comment = (props: CommentProps) => {
   const deleteCommentHandler = async () => {
     dispatch(deleteCommentStart(id, parentId));
 
-    // console.log('data', data);
-
-    // dispatch(createCommentStart(data));
-
     setAreSubCommentsShown(false);
   };
 

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
 import 'datejs';
 
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
