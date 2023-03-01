@@ -57,7 +57,9 @@ export function* fetchTodosAsync(action: GetTodosStart) {
         !key.toLowerCase().includes(filterValue) &&
         !data[key].title.toLowerCase().includes(filterValue)
       ) {
+        console.log(data[key].title);
         delete data[key];
+        continue;
       }
 
       if (
