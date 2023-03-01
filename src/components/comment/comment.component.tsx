@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { ReactComponent as CommentIcon } from '../../assets/comment.svg';
 import { ReactComponent as EyeIcon } from '../../assets/eye.svg';
@@ -8,9 +9,7 @@ import CommentsList from '../comments-list/comments-list.component';
 
 import { CommentProps } from './types';
 import './comment.style.scss';
-import { deleteComment } from '../../api/api';
-import { setComments } from '../../store/comments/comments.action';
-import { useAppDispatch } from '../../store/hooks';
+import { deleteCommentStart } from '../../store/comments/comments.action';
 
 const Comment = (props: CommentProps) => {
   const { text, taskId, id, parentId } = props;
@@ -18,7 +17,7 @@ const Comment = (props: CommentProps) => {
   const [isCommenting, setIsCommenting] = useState(false);
   const [areSubCommentsShown, setAreSubCommentsShown] = useState(false);
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const addCommentHandler = () => {
     setIsCommenting(true);
@@ -33,10 +32,11 @@ const Comment = (props: CommentProps) => {
   };
 
   const deleteCommentHandler = async () => {
-    const data = await deleteComment(id, parentId);
+    dispatch(deleteCommentStart(id, parentId));
 
-    //@ts-ignore
-    dispatch(setComments(data));
+    // console.log('data', data);
+
+    // dispatch(createCommentStart(data));
 
     setAreSubCommentsShown(false);
   };

@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ToDoList from '../to-do-list/to-do-list.component';
 import Modal from '../modal/modal.component';
 
-import { ToDoType } from '../modal/types';
+import { ToDoWithId } from '../modal/types';
 import './tasks-categories.styles.scss';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   selectQueueToDos,
   selectCompletedToDos,
   selectProgressToDos,
 } from '../../store/todos/todos.selector';
-import { editItem } from '../../api/api';
-import { setTodos } from '../../store/todos/todos.action';
+import { TO_DO_RELEVANCE, TO_DO_STATUS } from '../../api/api';
+import { editTodoStart } from '../../store/todos/todos.action';
 
 const defaultChosenTodo = {
   title: '',
@@ -22,27 +22,28 @@ const defaultChosenTodo = {
   expiryDate: Date.today().setTimeToNow().toString('yyyy-MM-ddTHH:mm'),
   files: [],
   id: '',
-  status: '',
+  status: TO_DO_STATUS.QUEUE,
   projectId: '',
   priority: 'низкий',
   parentTodo: '',
   createDate: '',
+  relevance: TO_DO_RELEVANCE.ACTIVE,
 };
 
 const TasksCategories = () => {
-  const [chosenToDo, setChosenToDo] = useState<ToDoType>(defaultChosenTodo);
+  const [chosenToDo, setChosenToDo] = useState<ToDoWithId>(defaultChosenTodo);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
 
-  const queueToDos = useAppSelector(selectQueueToDos);
-  const progressToDos = useAppSelector(selectProgressToDos);
-  const completedToDos = useAppSelector(selectCompletedToDos);
+  const queueToDos = useSelector(selectQueueToDos);
+  const progressToDos = useSelector(selectProgressToDos);
+  const completedToDos = useSelector(selectCompletedToDos);
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const { projectId } = useParams();
 
-  const handleModalOpen = (item: ToDoType) => {
+  const handleModalOpen = (item: ToDoWithId) => {
     setChosenToDo(item);
     setIsModalOpen(true);
     setModalType('view');
@@ -74,15 +75,15 @@ const TasksCategories = () => {
       return;
     }
 
-    const data = await editItem(
-      draggableId,
-      {
-        status: destination.droppableId,
-      },
-      projectId
+    dispatch(
+      editTodoStart(
+        draggableId,
+        {
+          status: destination.droppableId as TO_DO_STATUS,
+        },
+        projectId
+      )
     );
-
-    dispatch(setTodos(data));
   };
 
   return (

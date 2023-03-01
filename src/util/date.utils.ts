@@ -1,9 +1,4 @@
-//@ts-ignore
-import * as DateJs from 'datejs';
-
-export const createAction = (type: string, payload: unknown) => {
-  return { type, payload };
-};
+import 'datejs';
 
 export const formatDate = (date: string, format = 'dd.MM.yyyy HH:mm') => {
   return Date.parse(date).toString(format);

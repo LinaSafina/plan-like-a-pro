@@ -1,33 +1,25 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-//@ts-ignore
-import * as DateJS from 'datejs';
+import 'datejs';
 
 import TasksCategories from '../../components/tasks-categories/tasks-categories.component';
 import TextField from '../../components/text-field/text-field.component';
 
-import { getTodos } from '../../api/api';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setTodos } from '../../store/todos/todos.action';
+import { getTodosStart } from '../../store/todos/todos.action';
 import './tasks-page.styles.scss';
-import { selectAllTodos } from '../../store/todos/todos.selector';
-import { ToDoType } from '../../components/modal/types';
 
 const TasksPage = () => {
   const [searchValue, setSearchValue] = useState('');
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const { projectId } = useParams();
 
   let tomorrow = Date.today().add(1).day();
 
   useEffect(() => {
-    getTodos(projectId)
-      .then((data) => {
-        dispatch(setTodos(data));
-      })
-      .catch((error) => console.log(error));
+    dispatch(getTodosStart(projectId));
   }, []);
 
   useEffect(() => {
@@ -37,9 +29,7 @@ const TasksPage = () => {
           return;
         }
 
-        const data = await getTodos(projectId);
-
-        dispatch(setTodos(data));
+        dispatch(getTodosStart(projectId));
 
         tomorrow = Date.today().add(1).day();
       };
@@ -57,23 +47,7 @@ const TasksPage = () => {
   };
 
   useEffect(() => {
-    const filterTodos = (data: ToDoType[]) => {
-      return data.filter(
-        (todo) =>
-          todo.id.toLowerCase().includes(searchValue) ||
-          todo.title.toLowerCase().includes(searchValue)
-      );
-    };
-
-    getTodos(projectId).then((data) =>
-      dispatch(
-        setTodos({
-          queue: filterTodos(data.queue),
-          progress: filterTodos(data.progress),
-          completed: filterTodos(data.completed),
-        })
-      )
-    );
+    dispatch(getTodosStart(projectId, searchValue));
   }, [searchValue]);
 
   return (

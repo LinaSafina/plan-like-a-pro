@@ -1,9 +1,9 @@
-import { ToDoType } from '../modal/types';
+import { ToDoType, ToDoWithId } from '../modal/types';
 
 export type ToDoListProps = {
-  handleModalOpen: (value: ToDoType) => void;
+  handleModalOpen: (value: ToDoWithId) => void;
   setModalType: (value: string) => void;
   heading: string;
-  todos: ToDoType[];
+  todos?: ToDoWithId[];
   id: string;
 };

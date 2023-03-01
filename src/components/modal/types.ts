@@ -1,7 +1,8 @@
+import { TO_DO_RELEVANCE, TO_DO_STATUS } from '../../api/api';
 import { FilesType } from '../to-do-form/types';
 
 export type ModalProps = {
-  data: ToDoType;
+  data: ToDoWithId;
   isOpen: boolean;
   onClose: () => void;
   modalType: string;
@@ -12,12 +13,15 @@ export type ModalProps = {
 export type ToDoType = {
   title: string;
   description: string;
+  isExpired?: boolean;
   expiryDate: string;
   files: FilesType[];
-  id: string;
-  status: string;
+  status: TO_DO_STATUS;
   projectId: string;
   priority: string;
   parentTodo: string;
   createDate: string;
+  relevance: TO_DO_RELEVANCE;
 };
+
+export type ToDoWithId = ToDoType & { id: string };

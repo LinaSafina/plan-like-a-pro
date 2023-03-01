@@ -1,5 +1,4 @@
-//@ts-ignore
-import * as DateJS from 'datejs';
+import 'datejs';
 import { useState } from 'react';
 
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
@@ -8,7 +7,7 @@ import Comments from '../comments/comments.component';
 import { TO_DO_STATUS } from '../../api/api';
 import './to-do-item-card.styles.scss';
 import { ToDoItemCardType } from './types';
-import { formatDate, getDateDifference } from '../../util';
+import { formatDate, getDateDifference } from '../../util/date.utils';
 
 const ToDoItemCard = (props: ToDoItemCardType) => {
   const { data, setModalType } = props;
@@ -18,6 +17,7 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
     expiryDate,
     files,
     status,
+    isExpired,
     id,
     createDate,
     priority,
@@ -33,7 +33,6 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
     setAreCommentsShown((prevState) => !prevState);
   };
 
-  //@ts-ignore
   const fileListContent = files.map((file) => (
     <li key={file.id} className='to-do-item-card__list-item'>
       {file.name}
@@ -42,7 +41,7 @@ const ToDoItemCard = (props: ToDoItemCardType) => {
 
   let statusClasses = 'progress';
 
-  if (status === TO_DO_STATUS.EXPIRED) {
+  if (isExpired) {
     statusClasses = 'expired';
   }
 

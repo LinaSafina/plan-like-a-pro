@@ -1,6 +1,5 @@
 import React from 'react';
-//@ts-ignore
-import * as DateJS from 'datejs';
+import 'datejs';
 
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import TextField from '../text-field/text-field.component';

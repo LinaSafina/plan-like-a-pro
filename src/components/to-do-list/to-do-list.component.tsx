@@ -7,9 +7,8 @@ import { Droppable } from 'react-beautiful-dnd';
 const ToDoList = (props: ToDoListProps) => {
   const { handleModalOpen, setModalType, heading, todos, id } = props;
 
-  //@ts-ignore
-  const todosList = todos.map((item, index) => {
-    const { title, id, status, parentTodo } = item;
+  const todosList = todos?.map((item, index) => {
+    const { title, id, status, parentTodo, relevance } = item;
 
     return (
       <ToDoItem
@@ -17,6 +16,7 @@ const ToDoList = (props: ToDoListProps) => {
         index={index}
         text={title}
         id={id}
+        relevance={relevance}
         status={status}
         handleModalOpen={handleModalOpen.bind(null, item)}
         setModalType={setModalType}
@@ -35,8 +35,8 @@ const ToDoList = (props: ToDoListProps) => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {todos.length > 0 && todosList}
-            {todos.length === 0 && (
+            {todos && todos.length > 0 && todosList}
+            {todos && todos.length === 0 && (
               <li className='tasks__empty-list'>Нет задач</li>
             )}
             {provided.placeholder}

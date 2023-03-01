@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-//@ts-ignore
-import * as DateJS from 'datejs';
+
+import 'datejs';
 
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import ToDoItemCard from '../to-do-item-card/to-do-item-card.component';
 import ToDoForm from '../to-do-form/to-do-form.component';
 
 import './modal.styles.scss';
-import { editItem, sendTodo, TO_DO_STATUS } from '../../api/api';
+import { TO_DO_RELEVANCE, TO_DO_STATUS } from '../../api/api';
 import { ModalProps } from './types';
 import { FilesType } from '../to-do-form/types';
-import { useAppDispatch } from '../../store/hooks';
-import { setTodos } from '../../store/todos/todos.action';
+import { createTodoStart, editTodoStart } from '../../store/todos/todos.action';
 
 const defaultFormFields = {
   title: '',
@@ -21,6 +21,7 @@ const defaultFormFields = {
   expiryDate: Date.today().setTimeToNow().toString('yyyy-MM-ddTHH:mm'),
   priority: 'низкий',
   parentTodo: '',
+  files: [],
 };
 
 const Modal = (props: ModalProps) => {
@@ -32,7 +33,7 @@ const Modal = (props: ModalProps) => {
   const { projectId } = useParams();
 
   const [formFields, setFormFields] = useState(defaultFormFields);
-  //@ts-ignore
+
   const { title, description, expiryDate, files, priority, parentTodo } =
     formFields;
 
@@ -49,7 +50,6 @@ const Modal = (props: ModalProps) => {
       description: data.description,
       expiryDate: data.expiryDate,
       priority: data.priority,
-      //@ts-ignore
       files: [],
       parentTodo: data.parentTodo,
     });
@@ -57,7 +57,7 @@ const Modal = (props: ModalProps) => {
     setUpdatedFiles(data.files);
   }, [data]);
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const modalClasses = `modal to-do-card ${isOpen ? 'shown' : ''}`;
   const overlayClasses = `overlay ${isOpen ? 'shown' : ''}`;
@@ -70,8 +70,10 @@ const Modal = (props: ModalProps) => {
 
       for (let key in event.target.files) {
         if (!isNaN(parseInt(key))) {
-          //@ts-ignore
-          filesArr.push({ id: key, name: event.target.files[key].name });
+          filesArr.push({
+            id: key,
+            name: event.target.files[parseInt(key)].name,
+          });
         }
       }
 
@@ -90,42 +92,45 @@ const Modal = (props: ModalProps) => {
       return;
     }
 
-    let formData = {};
-
     if (modalType === 'editing') {
-      formData = await editItem(
-        data.id,
-        {
-          title,
-          description,
-          expiryDate,
-          projectId,
-          priority,
-          status: data.status,
-          files: [...files, ...updatedFiles],
-        },
-        projectId
+      dispatch(
+        editTodoStart(
+          data.id,
+          {
+            title,
+            description,
+            expiryDate,
+            projectId,
+            priority,
+            status: data.status,
+            files: [...files, ...updatedFiles],
+          },
+          projectId
+        )
       );
     }
 
     if (modalType === 'creating') {
-      formData = await sendTodo(
-        {
-          title,
-          description,
-          expiryDate,
-          status: TO_DO_STATUS.QUEUE,
-          files,
-          projectId,
-          priority,
-          parentTodo,
-          createDate: Date.today().setTimeToNow().toString('yyyy-MM-ddTHH:mm'),
-        },
-        projectId
+      dispatch(
+        createTodoStart(
+          {
+            title,
+            description,
+            expiryDate,
+            status: TO_DO_STATUS.QUEUE,
+            files,
+            projectId: projectId || '',
+            priority,
+            parentTodo,
+            relevance: TO_DO_RELEVANCE.ACTIVE,
+            createDate: Date.today()
+              .setTimeToNow()
+              .toString('yyyy-MM-ddTHH:mm'),
+          },
+          projectId
+        )
       );
     }
-
-    dispatch(setTodos(formData));
 
     setModalType('view');
 

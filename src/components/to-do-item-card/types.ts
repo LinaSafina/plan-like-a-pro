@@ -1,6 +1,6 @@
-import { ToDoType } from '../modal/types';
+import { ToDoType, ToDoWithId } from '../modal/types';
 
 export type ToDoItemCardType = {
-  data: ToDoType;
+  data: ToDoWithId;
   setModalType: (value: string) => void;
 };

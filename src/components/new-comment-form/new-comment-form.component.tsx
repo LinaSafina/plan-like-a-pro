@@ -1,20 +1,19 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createCommentStart } from '../../store/comments/comments.action';
 
 import Button from '../button/button.component';
 import TextField from '../text-field/text-field.component';
 
-import { sendComment } from '../../api/api';
 import './new-comment-form.style.scss';
 import { NewCommentFormProps } from './types';
-import { useAppDispatch } from '../../store/hooks';
-import { setComments } from '../../store/comments/comments.action';
 
 const NewCommentForm = (props: NewCommentFormProps) => {
   const { taskId, cancelButton, parentId } = props;
 
   const [newComment, setNewComment] = useState('');
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const inputChangeHandler = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -29,13 +28,12 @@ const NewCommentForm = (props: NewCommentFormProps) => {
       return;
     }
 
-    const data = await sendComment(
-      { text: newComment, taskId, parentId: parentId || taskId },
-      parentId
+    dispatch(
+      createCommentStart(
+        { text: newComment, taskId, parentId: parentId || taskId },
+        parentId || ''
+      )
     );
-
-    //@ts-ignore
-    dispatch(setComments(data));
 
     setNewComment('');
 

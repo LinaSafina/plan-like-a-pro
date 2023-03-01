@@ -1,23 +1,19 @@
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getProjects } from '../../api/api';
 import './projects-page.styles.scss';
-import { setProjects } from '../../store/projects/projects.action';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectAllProjects } from '../../store/projects/projects.selector';
+import { fetchProjectsStart } from '../../store/projects/projects.action';
+import { selectProjectsMap } from '../../store/projects/projects.selector';
 
 const ProjectsPage = () => {
-  const dispatch = useAppDispatch();
-  const projects = useAppSelector(selectAllProjects);
+  const dispatch = useDispatch();
+  const projects = useSelector(selectProjectsMap);
 
   useEffect(() => {
-    getProjects().then((data) => {
-      dispatch(setProjects(data));
-    });
+    dispatch(fetchProjectsStart());
   }, []);
 
-  //@ts-ignore
   const projectList = projects.map(({ name, id }) => (
     <li key={id} className='projects__list-item list-item'>
       <Link className='projects__link' to={`/${id}/tasks`}>

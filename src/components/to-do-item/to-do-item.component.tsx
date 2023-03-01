@@ -1,7 +1,7 @@
-//@ts-ignore
-import * as DateJS from 'datejs';
+import 'datejs';
 import { Draggable } from 'react-beautiful-dnd';
 import { useParams } from 'react-router';
+import { useDispatch } from 'react-redux';
 
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/bin.svg';
@@ -9,16 +9,23 @@ import { ReactComponent as DoneIcon } from '../../assets/done.svg';
 import { ReactComponent as PlusIcon } from '../../assets/plus.svg';
 
 import './to-do-item.styles.scss';
-import { deleteItem, editItem, TO_DO_STATUS } from '../../api/api';
+import { TO_DO_RELEVANCE, TO_DO_STATUS } from '../../api/api';
 import { ToDoItemProps } from './types';
-import { useAppDispatch } from '../../store/hooks';
-import { setTodos } from '../../store/todos/todos.action';
+import { deleteTodoStart, editTodoStart } from '../../store/todos/todos.action';
 
 const ToDoItem = (props: ToDoItemProps) => {
-  const { text, id, status, handleModalOpen, setModalType, parentTodo, index } =
-    props;
+  const {
+    text,
+    id,
+    status,
+    handleModalOpen,
+    relevance,
+    setModalType,
+    parentTodo,
+    index,
+  } = props;
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const { projectId } = useParams();
 
@@ -31,18 +38,16 @@ const ToDoItem = (props: ToDoItemProps) => {
   };
 
   const handleItemDeletion = async () => {
-    const data = await deleteItem(id, projectId);
-
-    dispatch(setTodos(data));
+    dispatch(deleteTodoStart(id, projectId));
   };
 
   const handleItemCompletion = async () => {
     const newStatus =
-      status === TO_DO_STATUS.COMPLETED ? 'progress' : TO_DO_STATUS.COMPLETED;
+      status === TO_DO_STATUS.COMPLETED
+        ? TO_DO_STATUS.IN_PROGRESS
+        : TO_DO_STATUS.COMPLETED;
 
-    const data = await editItem(id, { status: newStatus }, projectId);
-
-    dispatch(setTodos(data));
+    dispatch(editTodoStart(id, { status: newStatus }, projectId));
   };
 
   const handleItemEditing = () => {
@@ -59,8 +64,11 @@ const ToDoItem = (props: ToDoItemProps) => {
 
   let todoItemClasses = '';
 
-  if (status === TO_DO_STATUS.EXPIRED) {
-    todoItemClasses += status;
+  if (
+    relevance === TO_DO_RELEVANCE.EXPIRED &&
+    status !== TO_DO_STATUS.COMPLETED
+  ) {
+    todoItemClasses += 'expired';
   }
 
   if (status === TO_DO_STATUS.COMPLETED) {

@@ -1,4 +1,3 @@
-import { ChangeEvent } from 'react';
 import Input from '../input/input.component';
 import Select from '../select/select.component';
 import TextArea from '../text-area/text-area.component';

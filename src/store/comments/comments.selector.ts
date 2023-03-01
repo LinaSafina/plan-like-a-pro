@@ -1,4 +1,9 @@
+import { createSelector } from 'reselect';
 import { RootState } from '../store';
 
-//@ts-ignore
-export const selectAllComments = (state: RootState) => state.comments;
+export const selectCommentsSlice = (state: RootState) => state.comments;
+
+export const selectAllComments = createSelector(
+  [selectCommentsSlice],
+  (commentsSlice) => commentsSlice.comments
+);
