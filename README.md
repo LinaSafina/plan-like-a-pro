@@ -4,7 +4,11 @@ SPA TODO-приложение с использованием React и Redux. П
 - Страница с выбором проекта
 - Страница с задачами
 
-Тех. стек: create-react-app, react-router-dom(v.6), Typescript, redux\react-redux, sass, react-beautiful-dnd, datejs
+В данной приложении вы можете создавать, редактировать и удалять задачи и подзадачи к ним. 
+Можно менять статус задачи, перенося таску в один из трех столбцов: В очереди, В работе, Выполненные.
+Реализована возможность поиска по коду и названию задачи.
 
-Приложение развернуто и доступно по ссылке [uptrader-to-do.web.app/projects](https://uptrader-to-do.web.app/projects)
+Тех. стек: create-react-app, react-router-dom(v.6), Typescript, redux\react-redux, redux-saga, sass, react-beautiful-dnd, datejs
+
+Приложение развернуто и доступно по ссылке [plan-like-a-pro.netlify.app](https://plan-like-a-pro.netlify.app)
 
